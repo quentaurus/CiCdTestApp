@@ -11,6 +11,9 @@ on:
       - main  # Run CI on every PR to main
   workflow_dispatch:  # Allows manual trigger
 
+permissions:
+  contents: write  # Grants permission to create releases
+
 jobs:
   build-test:
     name: Build and Test
