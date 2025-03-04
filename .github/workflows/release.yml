@@ -58,7 +58,7 @@ jobs:
 
       - name: Ensure ZIP file exists
         run: |
-          if [ ! -f target/MyApp-*-release.zip ]; then
+          if [ ! -f target/CiCdTestApp-*-release.zip ]; then
             echo "ERROR: Release ZIP not found!"
             exit 1
           fi
