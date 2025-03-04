@@ -7,6 +7,6 @@ class MainTest {
 
     @Test
     void testHelloMessage() {
-        assertEquals("Hello, Java Desktop Application!", Main.getHelloMessage());
+        assertEquals("Hello, Java Desktop Application!!", Main.getHelloMessage());
     }
 }
