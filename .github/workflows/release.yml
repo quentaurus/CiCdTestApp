@@ -3,16 +3,13 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # Run on every push to main
+      - main  # Run CI on every push to main
+    tags:
+      - "v*"  # Only run when pushing a version tag like v1.0.0
   pull_request:
     branches:
-      - main  # Run on PRs before merging
+      - main  # Run CI on every PR to main
   workflow_dispatch:  # Allows manual trigger
-
-  # Automatic release when pushing a tag like v1.0.0
-  push:
-    tags:
-      - "v*"
 
 jobs:
   build-test:
@@ -42,7 +39,7 @@ jobs:
   release:
     name: Create Release
     needs: build-test  # Only run if build-test is successful
-    if: startsWith(github.ref, 'refs/tags/v')  # Only run when a version tag is pushed
+    if: startsWith(github.ref, 'refs/tags/v')  # Ensure this only runs when a tag like v1.0.0 is pushed
     runs-on: ubuntu-latest
 
     steps:
@@ -58,6 +55,13 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean package
+
+      - name: Ensure ZIP file exists
+        run: |
+          if [ ! -f target/MyApp-*-release.zip ]; then
+            echo "ERROR: Release ZIP not found!"
+            exit 1
+          fi
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
