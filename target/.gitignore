@@ -1,1 +1,4 @@
 /classes/
+/test-classes/
+/original-CiCdTestApp-1.0-SNAPSHOT.jar
+/CiCdTestApp-1.0-SNAPSHOT-shaded.jar

@@ -40,6 +40,41 @@
 		</dependency>
 	</dependencies>
 
+	<repositories>
+		<repository>
+			<id>graalvm</id>
+			<url>https://maven.graalvm.org</url>
+		</repository>
+	</repositories>
+
+	<profiles>
+    <profile>
+        <id>native</id>
+        <activation>
+            <property>
+                <name>native</name>
+            </property>
+        </activation>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.graalvm.buildtools</groupId>
+                    <artifactId>native-maven-plugin</artifactId>
+                    <version>0.9.28</version>  <!-- Latest stable version -->
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>compile</goal>  <!-- ✅ Correct goal -->
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+</profiles>
+
+
     <build>
         <plugins>
             <!-- Maven Compiler Plugin -->
